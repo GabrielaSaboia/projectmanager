@@ -4,32 +4,67 @@ import TaskCard from './TaskCard';
 
 class TaskColumn extends React.Component{
 
-    markDone = (task) => {
+    markDone = (task, newColumn) => {
         const taskIndex = this.props.tasks.findIndex(t => t.id === task.id);
         let taskList = this.props.tasks;
-        taskList.splice(taskIndex, 1);
-        console.log(this.props);
+        taskList[taskIndex].column = newColumn;
         this.props.onUpdateTaskList(taskList);
     }
 
     render(){
-        const TaskCards = this.props.tasks.map(task => {
+        const todoTasks = this.props.tasks.filter(task => task.column === 'todo');
+        const inProgressTasks = this.props.tasks.filter(task => task.column === 'in-progress');
+        const reviewTasks = this.props.tasks.filter(task => task.column === 'review');
+        const doneTasks = this.props.tasks.filter(task => task.column === 'done');
+
+        const TodoCards = todoTasks.map(task => {
+            return <TaskCard
+                task={task}
+                key={task.id}
+                markDone={this.markDone}
+                nextCol="in-progress"
+            />
+        });        const ProgressCards = inProgressTasks.map(task => {
+            return <TaskCard
+                task={task}
+                key={task.id}
+                markDone={this.markDone}
+                prevCol="todo"
+                nextCol="review"
+            />
+        });
+
+
+        const ReviewCards = reviewTasks.map(task => {
             return <TaskCard
                 task={task}
                 key={task.id}
                 markDone={this.markDone}
             />
         });
+
+
+        const DoneCards = doneTasks.map(task => {
+            return <TaskCard
+                task={task}
+                key={task.id}
+                markDone={this.markDone}
+            />
+        });
+
         return(
             <div className="container">
                 <div className="card-columns" >
-                    {TaskCards}
+                    {TodoCards}
                 </div>
                 <div className="card-columns" >
-                    {TaskCards}
+                    {ProgressCards}
                 </div>
                 <div className="card-columns" >
-                    {TaskCards}
+                    {ReviewCards}
+                </div>
+                <div className="card-columns" >
+                    {DoneCards}
                 </div>
             </div>
 
@@ -37,4 +72,4 @@ class TaskColumn extends React.Component{
     }
 }
 
- export default TaskColumn;
+export default TaskColumn;
