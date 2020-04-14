@@ -1,10 +1,12 @@
 import React from 'react';
 
-import TaskCard from './TaskCard';
+import TaskColumn from './TaskColumn';
 
-const TaskBoard = () =>{
+
+const TaskBoard = props =>{
+
     return (<div>
-        <TaskCard/>
+        <TaskColumn tasks={this.props.tasks}/>
     </div>);
 }
 

@@ -12,7 +12,7 @@ import TaskColumn from './TaskColumn';
 class App extends React.Component{
     state = {
     tasks:[],
-    column: [],
+    columns: '',
     view: 'page1',
     errorMessage:''
     }
@@ -41,19 +41,12 @@ class App extends React.Component{
     this.setState({ tasks });
     }
 
-    onColumnChange = (columnName) =>{
-    let column = this.state.column;
-    column.push({
-    title:
-    });
-    }
-
     onUpdateTaskList = (newTaskList) => {
      this.setState({ tasks: newTaskList });
     }
 
     onUpdateTaskColumn = (newTaskColumn) => {
-    this.setState({ Column: newTaskColumn });
+    this.setState({ columns: newTaskColumn });
     }
 
     onViewChange = (view) => {
@@ -71,7 +64,6 @@ class App extends React.Component{
         );
     }
 
-
     render(){
     const { view } = this.state;
 
@@ -80,7 +72,7 @@ class App extends React.Component{
             return (this.wrapPage(
             <TaskBoard
             tasks={this.state.tasks}
-            onUpdateTaskColumn={this.onUpdateTaskColumn}
+            onUpdateTaskList={this.onUpdateTaskList}
             />
             ));
         case 'page2':
@@ -109,6 +101,9 @@ class App extends React.Component{
 export default App;
 
 /*
+
+columns={this.state.columns}
+
 Part 1: App Component (Required for All)
 Description
 The App component will be the top-level component of your application and should be
