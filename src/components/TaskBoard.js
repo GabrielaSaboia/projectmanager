@@ -3,11 +3,12 @@ import React from 'react';
 import TaskColumn from './TaskColumn';
 
 
-const TaskBoard = props =>{
-
+class TaskBoard extends React.Component{
+render(){
     return (<div>
         <TaskColumn tasks={this.props.tasks}/>
     </div>);
+}
 }
 
 export default TaskBoard;
