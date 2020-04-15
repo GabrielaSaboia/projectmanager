@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TaskItem from './TaskItem';
-
+import TaskListFilter from './TaskListFilter';
 
 class TaskList extends React.Component{
 
@@ -21,10 +21,10 @@ class TaskList extends React.Component{
 
 
     wrapPage = (jsx) => {
-        const { view } = this.state;
+        const { listView } = this.state;
         return (
             <div className="container">
-                <PageTabs currentView={view}
+                <TaskListFilter currentView={listView}
                           onViewChange={this.onViewChange.bind(this)}/>
                 {jsx}
             </div>
@@ -42,7 +42,7 @@ class TaskList extends React.Component{
         const nameList = nameTasks.map(task => {
             return <TaskItem task={task} key={task.id} markDone={this.markDone} />
         });
-        const idList = idTasks.map(task =>{
+        const idList = idTasks.map(task => {
             <TaskItem task={task} key={task.id} markDone={this.markDone} />
         });
 
@@ -82,7 +82,7 @@ class TaskList extends React.Component{
 
 
 
-            );
+
     }
 }
 
