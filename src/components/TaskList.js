@@ -8,8 +8,21 @@ class TaskList extends React.Component{
     state = {
         listView: '',
 
-    }
+    };
 
+     orderBy = (listView) => {
+         if ( listView === 'name'){
+            this.props.tasks.sort((a,b) => {
+                const nameA = a.name.toUppercase();
+                const nameB = b.name.toUppercase();
+                if(nameA < nameB){
+                    return -1;
+                }if (nameA > nameB){
+                    return 1;
+                }
+            });
+         }
+    };
 
     markDone = (task) => {
         const taskIndex = this.props.tasks.findIndex(t => t.id === task.id);
@@ -17,7 +30,7 @@ class TaskList extends React.Component{
         taskList.splice(taskIndex, 1);
         console.log(this.props);
         this.props.onUpdateTaskList(taskList);
-    }
+    };
 
     onViewChange = (view) => {
         this.setState({ view });
@@ -35,8 +48,15 @@ class TaskList extends React.Component{
     }
     render(){
 
-        const typeTasks = this.props.tasks.filter(task => task.type === '');
-        const nameTasks = this.props.tasks.filter(task => task.name === '');
+
+        const taskItems = this.props.tasks.map(task => {
+            return <TaskItem task={task} key={task.id} markDone={this.markDone} />
+        });
+
+        const { view } = this.state;
+
+       /* const typeTasks = this.props.tasks.filter(task => task.type === ' ');
+        const nameTasks = this.props.tasks.sort(); //this.props.tasks.sort(task => task.name === ' ');
         const idTasks = this.props.tasks.filter(task => task.id === '');
 
         const typeList = typeTasks.map(task =>{
@@ -47,17 +67,15 @@ class TaskList extends React.Component{
         });
         const idList = idTasks.map(task => {
             return <TaskItem task={task} key={task.id} markDone={this.markDone} />
-        });
+        });*/
 
-        const taskItems = this.props.tasks.map(task => {
-            return <TaskItem task={task} key={task.id} markDone={this.markDone} />
-        });
 
-        const { view } = this.state;
+
+
 
 
         switch (view){
-            case 'type':
+           /* case 'type':
                 return (this.wrapPage(
 
                     <ul className="task-list list-group">
@@ -75,7 +93,7 @@ class TaskList extends React.Component{
                     <ul className="task-list list-group">
                         { idList }
                     </ul>
-                ));
+                ));*/
             default:
                 return (this.wrapPage(
                     <ul className="task-list list-group">
