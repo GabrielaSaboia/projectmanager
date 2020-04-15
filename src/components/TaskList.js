@@ -19,6 +19,9 @@ class TaskList extends React.Component{
         this.props.onUpdateTaskList(taskList);
     }
 
+    onViewChange = (view) => {
+        this.setState({ view });
+    }
 
     wrapPage = (jsx) => {
         const { listView } = this.state;
@@ -43,7 +46,7 @@ class TaskList extends React.Component{
             return <TaskItem task={task} key={task.id} markDone={this.markDone} />
         });
         const idList = idTasks.map(task => {
-            <TaskItem task={task} key={task.id} markDone={this.markDone} />
+            return <TaskItem task={task} key={task.id} markDone={this.markDone} />
         });
 
         const taskItems = this.props.tasks.map(task => {
