@@ -53,7 +53,8 @@ class TaskList extends React.Component{
             return <TaskItem task={task} key={task.id} markDone={this.markDone} />
         });
 
-        const { view } = this.state.listView;
+        const { view } = this.state;
+
 
         switch (view){
             case 'type':
