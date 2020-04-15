@@ -4,9 +4,14 @@ import TaskColumn from './TaskColumn';
 
 
 class TaskBoard extends React.Component{
-   render() {return (
-        <div><TaskColumn tasks={this.props.tasks} onUpdateTaskList={this.props.onUpdateTaskList} />
-</div>);
+   render() {
+      return (
+        <div>
+           <TaskColumn
+               tasks={this.props.tasks}
+               onUpdateTaskList={this.props.onUpdateTaskList}/>
+        </div>
+      );
    }
 
 }

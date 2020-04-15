@@ -8,9 +8,9 @@ const TaskCard = props =>{
                     {props.task.title}
                 </h5>
                 <h6 className="card-subtitle mb-2 text-muted">
-                    Task ID</h6>
+                    {props.task.id}</h6>
                 <p className="card-text">
-                    Task Type</p>
+                    {props.task.type}</p>
                 <a href="#" className="card-link"
                    onClick={() => props.markDone(props.task, props.prevCol)}>More Work Required</a>
                 <a href="#" className="card-link"
@@ -28,8 +28,3 @@ const TaskCard = props =>{
 }
 
  export default TaskCard;
-
-
-/*
-{props.task.id}
-{props.task.title}*/

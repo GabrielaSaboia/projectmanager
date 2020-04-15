@@ -12,7 +12,6 @@ import TaskColumn from './TaskColumn';
 class App extends React.Component{
     state = {
     tasks:[],
-    columns: '',
     view: 'page1',
     errorMessage:''
     }
@@ -30,12 +29,12 @@ class App extends React.Component{
     });
     }
 
-    onAddTask = (taskName) => {
+    onAddTask = (taskName, typeName) => {
     let tasks = this.state.tasks;
     tasks.push({
         title: taskName,
         id: this.state.tasks.length +1,
-        type: 'task',
+        type: typeName,
         column:'todo'
     });
     this.setState({ tasks });

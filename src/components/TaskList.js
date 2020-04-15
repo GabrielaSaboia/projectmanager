@@ -4,6 +4,13 @@ import TaskItem from './TaskItem';
 
 
 class TaskList extends React.Component{
+
+    state = {
+        listView: '',
+
+    }
+
+
     markDone = (task) => {
         const taskIndex = this.props.tasks.findIndex(t => t.id === task.id);
         let taskList = this.props.tasks;
@@ -11,14 +18,70 @@ class TaskList extends React.Component{
         console.log(this.props);
         this.props.onUpdateTaskList(taskList);
     }
+
+
+    wrapPage = (jsx) => {
+        const { view } = this.state;
+        return (
+            <div className="container">
+                <PageTabs currentView={view}
+                          onViewChange={this.onViewChange.bind(this)}/>
+                {jsx}
+            </div>
+        );
+    }
     render(){
+
+        const typeTasks = this.props.tasks.filter(task => task.type === '');
+        const nameTasks = this.props.tasks.filter(task => task.name === '');
+        const idTasks = this.props.tasks.filter(task => task.id === '');
+
+        const typeList = typeTasks.map(task =>{
+           return <TaskItem task={task} key={task.id} markDone={this.markDone} />
+        });
+        const nameList = nameTasks.map(task => {
+            return <TaskItem task={task} key={task.id} markDone={this.markDone} />
+        });
+        const idList = idTasks.map(task =>{
+            <TaskItem task={task} key={task.id} markDone={this.markDone} />
+        });
+
         const taskItems = this.props.tasks.map(task => {
             return <TaskItem task={task} key={task.id} markDone={this.markDone} />
         });
-            return (
-            <ul className="task-list list-group">
-                { taskItems }
-                </ul>
+
+        const { view } = this.state.listView;
+
+        switch (view){
+            case 'type':
+                return (this.wrapPage(
+
+                    <ul className="task-list list-group">
+                        { typeList }
+                    </ul>
+                ));
+            case 'name':
+                return (this.wrapPage(
+                    <ul className="task-list list-group">
+                        { nameList }
+                    </ul>
+                ));
+            case 'id':
+                return (this.wrapPage(
+                    <ul className="task-list list-group">
+                        { idList }
+                    </ul>
+                ));
+            default:
+                return (this.wrapPage(
+                    <ul className="task-list list-group">
+                        { taskItems }
+                    </ul>
+                ));
+        }
+
+
+
             );
     }
 }

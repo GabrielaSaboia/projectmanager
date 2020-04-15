@@ -17,6 +17,7 @@ class TaskColumn extends React.Component{
         const reviewTasks = this.props.tasks.filter(task => task.column === 'review');
         const doneTasks = this.props.tasks.filter(task => task.column === 'done');
 
+
         const TodoCards = todoTasks.map(task => {
             return <TaskCard
                 task={task}
@@ -24,7 +25,9 @@ class TaskColumn extends React.Component{
                 markDone={this.markDone}
                 nextCol="in-progress"
             />
-        });        const ProgressCards = inProgressTasks.map(task => {
+        });
+
+        const ProgressCards = inProgressTasks.map(task => {
             return <TaskCard
                 task={task}
                 key={task.id}
@@ -34,38 +37,44 @@ class TaskColumn extends React.Component{
             />
         });
 
-
         const ReviewCards = reviewTasks.map(task => {
             return <TaskCard
                 task={task}
                 key={task.id}
                 markDone={this.markDone}
+                prevCol="todo"
+                nextCol="review"
             />
         });
-
 
         const DoneCards = doneTasks.map(task => {
             return <TaskCard
                 task={task}
                 key={task.id}
                 markDone={this.markDone}
+                prevCol="todo"
+                nextCol="review"
             />
         });
 
         return(
             <div className="container">
-                <div className="card-columns" >
-                    {TodoCards}
-                </div>
-                <div className="card-columns" >
-                    {ProgressCards}
-                </div>
-                <div className="card-columns" >
-                    {ReviewCards}
-                </div>
-                <div className="card-columns" >
-                    {DoneCards}
-                </div>
+                    <div className="card-column" >
+                        <div className="card-column" >
+                            <h2>To Do</h2>
+                            {TodoCards}
+                        </div>
+                        <div className="card-column" >
+                            <h2>In Progress</h2>
+                            {ProgressCards}
+                        </div>
+
+                            <h2>Review</h2>
+                            {ReviewCards}
+
+                            <h2>Done</h2>
+                            {DoneCards}
+                    </div>
             </div>
 
         );
