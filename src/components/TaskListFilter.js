@@ -1,17 +1,21 @@
 import React from 'react';
 
 class TaskListFilter extends React.Component{
+    state={
+        sortBy: 'id'
+    }
 
     onFilterSelection(event, filterChoice){
-        this.props.onViewChange(filterChoice);
-    }
+        this.setState({sortBy: filterChoice});
+        this.props.orderBy(filterChoice);
+    };
 
     render() {
        return (
        <div>
         <form>
-            <label htmlFor="filter">
-                Filter:
+            <label htmlFor="filter" style={{padding: '1rem'}}>
+                Order by:
             </label>
             <select id="filter" onChange={(e)=>{
                 this.onFilterSelection(e, e.target.value)}}>
@@ -24,7 +28,7 @@ class TaskListFilter extends React.Component{
             </select>
         </form>
        </div>);
-   }
+    }
 }
 
 export default TaskListFilter;

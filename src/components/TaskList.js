@@ -7,20 +7,30 @@ class TaskList extends React.Component{
 
     state = {
         listView: '',
+        sortBy: 'id'
 
     };
 
      orderBy = (listView) => {
-         if ( listView === 'name'){
+         this.setState({sortBy: listView});
+
+         if ( listView === 'name' || listView === 'type'){
+             let key = (listView === 'name') ? 'title' : listView;
+
             this.props.tasks.sort((a,b) => {
-                const nameA = a.name.toUppercase();
-                const nameB = b.name.toUppercase();
+                console.log(a,b);
+                const nameA = a[key].toUpperCase();
+                const nameB = b[key].toUpperCase();
                 if(nameA < nameB){
                     return -1;
                 }if (nameA > nameB){
                     return 1;
                 }
             });
+         }else if (listView === 'id') {
+             this.props.tasks.sort((a, b) => {
+                 return a.id - b.id;
+             })
          }
     };
 
@@ -34,14 +44,14 @@ class TaskList extends React.Component{
 
     onViewChange = (view) => {
         this.setState({ view });
-    }
+    };
 
     wrapPage = (jsx) => {
         const { listView } = this.state;
         return (
             <div className="container">
                 <TaskListFilter currentView={listView}
-                          onViewChange={this.onViewChange.bind(this)}/>
+                          orderBy={this.orderBy}/>
                 {jsx}
             </div>
         );
@@ -55,46 +65,8 @@ class TaskList extends React.Component{
 
         const { view } = this.state;
 
-       /* const typeTasks = this.props.tasks.filter(task => task.type === ' ');
-        const nameTasks = this.props.tasks.sort(); //this.props.tasks.sort(task => task.name === ' ');
-        const idTasks = this.props.tasks.filter(task => task.id === '');
-
-        const typeList = typeTasks.map(task =>{
-           return <TaskItem task={task} key={task.id} markDone={this.markDone} />
-        });
-        const nameList = nameTasks.map(task => {
-            return <TaskItem task={task} key={task.id} markDone={this.markDone} />
-        });
-        const idList = idTasks.map(task => {
-            return <TaskItem task={task} key={task.id} markDone={this.markDone} />
-        });*/
 
 
-
-
-
-
-        switch (view){
-           /* case 'type':
-                return (this.wrapPage(
-
-                    <ul className="task-list list-group">
-                        { typeList }
-                    </ul>
-                ));
-            case 'name':
-                return (this.wrapPage(
-                    <ul className="task-list list-group">
-                        { nameList }
-                    </ul>
-                ));
-            case 'id':
-                return (this.wrapPage(
-                    <ul className="task-list list-group">
-                        { idList }
-                    </ul>
-                ));*/
-            default:
                 return (this.wrapPage(
                     <ul className="task-list list-group">
                         { taskItems }
@@ -105,7 +77,7 @@ class TaskList extends React.Component{
 
 
 
-    }
+
 }
 
 export default TaskList;

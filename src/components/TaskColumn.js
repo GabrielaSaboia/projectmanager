@@ -59,7 +59,7 @@ class TaskColumn extends React.Component{
 
         return(
             <div className="container">
-                    <div className="card-column" >
+                    <div className="card-column" style={{display:'flex'}}>
                         <div className="card-column" >
                             <h2>To Do</h2>
                             {TodoCards}
@@ -68,12 +68,14 @@ class TaskColumn extends React.Component{
                             <h2>In Progress</h2>
                             {ProgressCards}
                         </div>
-
+                        <div className="card-column" >
                             <h2>Review</h2>
                             {ReviewCards}
-
+                        </div>
+                        <div className="card-column" >
                             <h2>Done</h2>
                             {DoneCards}
+                        </div>
                     </div>
             </div>
 
