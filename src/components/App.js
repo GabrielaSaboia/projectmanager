@@ -21,7 +21,7 @@ class App extends React.Component{
     }
 
     getData() {
-    axios.get('http://my-json-server.typicode.com/bnissen24/project2DB/posts')
+    axios.get('https://my-json-server.typicode.com/bnissen24/project2DB/posts')
     .then(response => {
     this.setState({tasks: response.data });
     }).catch(error => {
